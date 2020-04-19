@@ -40,8 +40,10 @@ app.get("/api/init", async (req, res, next)=>{
 app.post("/api/vote", async (req, res, next)=>{
     try {        
         const candidate=req.body.candidate;
+        const wallet=req.body.wallet;
+
         const _candidate=ethers.utils.formatBytes32String(candidate);
-        await contract.methods.voteForCandidate(_candidate).send({ from: accounts[0] });
+        await contract.methods.voteForCandidate(_candidate).send({ from: wallet });
         // 전체 투표 수
         const totalVoteNum = await contract.methods.get().call();
         // 후보자 득표 수

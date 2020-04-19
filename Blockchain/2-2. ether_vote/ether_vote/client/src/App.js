@@ -19,9 +19,11 @@ class App extends Component {
   vote = async (e) => {
       e.preventDefault();
     const candidate=this.voteForm.candidate.value;
+    const wallet = this.wallet.value;
     if(window.confirm(candidate+"를 선택하셨습니다. 맞습니까?")) {
         const a={
-            'candidate':candidate
+            'candidate':candidate,
+            'wallet':wallet
         };
         console.log(a);
       fetch('http://localhost:4000/api/vote', {
@@ -50,6 +52,7 @@ class App extends Component {
         <h3>
           다음 중 회장으로 선출되길 원하시는 사람 한 명을 선택하고 투표 버튼을 누르세요
         </h3>
+        <input ref={ref=> this.wallet = ref} />
         <form ref={ref => this.voteForm = ref}   onSubmit={this.vote}>
           <br/><input type="radio" name="candidate" value="홍길동" /> 홍길동
           <br/><input type="radio" name="candidate" value="이영애" /> 이영애
